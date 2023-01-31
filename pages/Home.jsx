@@ -34,34 +34,34 @@ const movieCardsData = [
     watched: false,
     wishlistAdded: false,
   },
-  {
-    title: "Avatar - The way of water",
-    year: 2023,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-  {
-    title: "Avatar - The way of water",
-    year: 2023,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
+  // {
+  //   title: "Avatar - The way of water",
+  //   year: 2023,
+  //   updatedDate: "31/01/2023",
+  //   watched: true,
+  //   wishlistAdded: true,
+  // },
+  // {
+  //   title: "Harry Potter and the Goblet of Fire",
+  //   year: 2005,
+  //   updatedDate: "01/02/2023",
+  //   watched: false,
+  //   wishlistAdded: false,
+  // },
+  // {
+  //   title: "Avatar - The way of water",
+  //   year: 2023,
+  //   updatedDate: "31/01/2023",
+  //   watched: true,
+  //   wishlistAdded: true,
+  // },
+  // {
+  //   title: "Harry Potter and the Goblet of Fire",
+  //   year: 2005,
+  //   updatedDate: "01/02/2023",
+  //   watched: false,
+  //   wishlistAdded: false,
+  // },
 ];
 
 const Home = ({ navigation }) => {
