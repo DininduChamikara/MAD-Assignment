@@ -4,9 +4,12 @@ import { StyleSheet } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import TabIcon from "./components/TabIcon";
 import AddMovie from "./pages/AddMovie";
+import DashBoard from "./pages/DashBoard";
 import EditMovie from "./pages/EditMovie";
 import Home from "./pages/Home";
 import ROUTES from "./pages/ROUTES";
+import SearchMovie from "./pages/SearchMovie";
+import WishList from "./pages/WishList";
 import theme from "./theme/theme";
 
 const Tab = createMaterialBottomTabNavigator();
@@ -17,20 +20,17 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={screenOptionsSetter}
-          activeColor={"blue"}
+          activeColor={"#2588F6"}
           barStyle={styles.container}
           shifting={true}
         >
           {/*Add new screens here*/}
-          <Tab.Screen
-            name={ROUTES.HOME}
-            component={Home}
-            options={{
-              tabBarColor: "#fff",
-            }}
-          />
+          <Tab.Screen name={ROUTES.HOME} component={Home} />
           <Tab.Screen name={ROUTES.ADD_MOVIE} component={AddMovie} />
           <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} />
+          <Tab.Screen name={ROUTES.SEARCH_MOVIE} component={SearchMovie} />
+          <Tab.Screen name={ROUTES.DASHBOARD} component={DashBoard} />
+          <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />
         </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
@@ -49,7 +49,7 @@ const screenOptionsSetter = ({ route }) => ({
       case ROUTES.EDIT_MOVIE:
         return <TabIcon color={color} name="edit" />;
       case ROUTES.WISHLIST:
-        return <TabIcon color={color} name="list" />;
+        return <TabIcon color={color} name="hearto" />;
       default:
         return <TabIcon color={color} name="search1" />;
     }
