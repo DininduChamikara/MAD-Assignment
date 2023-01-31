@@ -1,8 +1,8 @@
 export default ROUTES = {
-  HOME: "home",
-  ADD_MOVIE: "add-movie",
-  EDIT_MOVIE: "edit-movie",
-  SEARCH_MOVIE: "search-movie",
-  WISHLIST: "wishlist",
-  DASHBOARD: "dashboard",
+  HOME: "Home",
+  ADD_MOVIE: "Add Movie",
+  EDIT_MOVIE: "Edit Movie",
+  SEARCH_MOVIE: "Search",
+  WISHLIST: "Wishlist",
+  DASHBOARD: "Dashboard",
 };

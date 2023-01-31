@@ -11,6 +11,8 @@ export default theme = {
     pink: "#E7647E",
     yellow: "#F9CE66",
     orange: "#F39A71",
+    backGround: "#F7F7F7",
+    secondaryContainer: "#fff", // do not remove
   },
   spacing: {
     padding: 5,
