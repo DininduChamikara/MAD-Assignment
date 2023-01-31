@@ -1,12 +1,12 @@
 import { Text } from "react-native";
 import PageWrapper from "../components/Layout/PageWrapper";
 
-const AddMovie = ({ navigation }) => {
+const SearchMovie = ({ navigation }) => {
   return (
     <PageWrapper>
-      <Text>Add Movie Screen</Text>
+      <Text>Search Movie Screen</Text>
     </PageWrapper>
   );
 };
 
-export default AddMovie;
+export default SearchMovie;

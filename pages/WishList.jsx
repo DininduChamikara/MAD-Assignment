@@ -1,12 +1,12 @@
 import { Text } from "react-native";
 import PageWrapper from "../components/Layout/PageWrapper";
 
-const AddMovie = ({ navigation }) => {
+const WishList = ({ navigation }) => {
   return (
     <PageWrapper>
-      <Text>Add Movie Screen</Text>
+      <Text>WishList Screen</Text>
     </PageWrapper>
   );
 };
 
-export default AddMovie;
+export default WishList;
