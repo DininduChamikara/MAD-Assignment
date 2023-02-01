@@ -1,9 +1,9 @@
 import * as React from "react";
-import { View } from "react-native";
-import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
+import { Avatar, Card, IconButton, Text } from "react-native-paper";
+import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
 
-const MovieCard = ({ cardData }) => {
+const MovieCard = ({ cardData, navigation }) => {
   const [wishlistAdded, setWishlistAdded] = React.useState(
     cardData ? cardData.wishlistAdded : false
   );
@@ -20,6 +20,8 @@ const MovieCard = ({ cardData }) => {
         onPress={() => {
           if(dropdownOpened){
             setDropdownOpened(false);
+          }else{
+            navigation.navigate(ROUTES.ADD_MOVIE)
           }
         }}
       >

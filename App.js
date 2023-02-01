@@ -1,5 +1,6 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import TabIcon from "./components/TabIcon";
@@ -27,7 +28,7 @@ export default function App() {
           {/*Add new screens here*/}
           <Tab.Screen name={ROUTES.HOME} component={Home} />
           <Tab.Screen name={ROUTES.ADD_MOVIE} component={AddMovie} />
-          <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} />
+          {/* <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} /> */}
           <Tab.Screen name={ROUTES.SEARCH_MOVIE} component={SearchMovie} />
           <Tab.Screen name={ROUTES.DASHBOARD} component={DashBoard} />
           <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />

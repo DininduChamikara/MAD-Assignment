@@ -73,9 +73,11 @@ const Home = ({ navigation }) => {
       {/* <Text>Home</Text> */}
       <SearchBarComponent />
 
-      <ScrollView style={{width:'100%'}}>
-        {movieCardsData.map((item) => (
-          <MovieCard cardData={item} />
+      <ScrollView style={{ width: "100%" }}>
+        {movieCardsData.map((item, index) => (
+          <View key={index}>
+            <MovieCard navigation={navigation} cardData={item} />
+          </View>
         ))}
       </ScrollView>
 
