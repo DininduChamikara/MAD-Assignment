@@ -1,5 +1,6 @@
 import { ScrollView, Text, View } from "react-native";
 import { Button, useTheme } from "react-native-paper";
+import DialogAlert from "../components/DialogAlert/DialogAlert";
 import PageWrapper from "../components/Layout/PageWrapper";
 import MovieCard from "../components/MovieCard/MovieCard";
 import SearchBarComponent from "../components/SearchBar/SearchBar";
@@ -70,9 +71,7 @@ const Home = ({ navigation }) => {
 
   return (
     <PageWrapper>
-      {/* <Text>Home</Text> */}
       <SearchBarComponent />
-
       <ScrollView style={{ width: "100%" }}>
         {movieCardsData.map((item, index) => (
           <View key={index}>
@@ -80,14 +79,7 @@ const Home = ({ navigation }) => {
           </View>
         ))}
       </ScrollView>
-
-      {/* <Button
-        mode="outlined"
-        onPress={() => navigation.navigate(ROUTES.ADD_MOVIE)}
-        style={{ padding: spacing.padding, margin: spacing.margin }}
-      >
-        Go to Add Movie
-      </Button> */}
+      <DialogAlert/>
     </PageWrapper>
   );
 };

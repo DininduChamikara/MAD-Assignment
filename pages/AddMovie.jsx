@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View } from "react-native";
 import { IconButton, Text, TextInput } from "react-native-paper";
+import DialogAlert from "../components/DialogAlert/DialogAlert";
 import PageWrapper from "../components/Layout/PageWrapper";
 
 const AddMovie = ({ navigation }) => {
