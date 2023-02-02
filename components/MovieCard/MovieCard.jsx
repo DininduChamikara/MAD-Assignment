@@ -1,14 +1,17 @@
 import * as React from "react";
-import { Avatar, Card, IconButton, Text } from "react-native-paper";
+import { View } from "react-native";
+import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
 
 const MovieCard = ({ cardData, navigation }) => {
+
   const [wishlistAdded, setWishlistAdded] = React.useState(
     cardData ? cardData.wishlistAdded : false
   );
 
   const [dropdownOpened, setDropdownOpened] = React.useState(false);
+
 
   return (
     <>
@@ -18,10 +21,10 @@ const MovieCard = ({ cardData, navigation }) => {
           setDropdownOpened(true);
         }}
         onPress={() => {
-          if(dropdownOpened){
+          if (dropdownOpened) {
             setDropdownOpened(false);
-          }else{
-            navigation.navigate(ROUTES.ADD_MOVIE)
+          } else {
+            navigation.navigate(ROUTES.ADD_MOVIE);
           }
         }}
       >
@@ -39,13 +42,26 @@ const MovieCard = ({ cardData, navigation }) => {
             />
           )}
           right={(props) => (
-            <IconButton
-              {...props}
-              icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
-              onPress={() => {
-                setWishlistAdded(!wishlistAdded);
-              }}
-            />
+            <View style={{display:'flex', flexDirection:'row', }}>
+              <IconButton
+                {...props}
+                icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
+                onPress={() => {
+                  if(wishlistAdded){
+                  }
+                  setWishlistAdded(!wishlistAdded);
+                }}
+              />
+              <IconButton
+                icon="book-search-outline"
+                size={25}
+                onPress={() => {
+                  navigation.navigate(ROUTES.SEARCH_MOVIE, {
+                    movieName: `${cardData ? cardData.title : ""}`,
+                  });
+                }}
+              />
+            </View>
           )}
         />
         <Card.Content>
