@@ -50,10 +50,10 @@ const MovieCard = ({ cardData, navigation }) => {
                 icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
                 onPress={() => {
                   if (wishlistAdded) {
-                    setSnackbarMessage("Movie remove from wishlist");
+                    setSnackbarMessage("Removed from wishlist");
                     setSnackbarVisible(true);
                   } else {
-                    setSnackbarMessage("Movie added to wishlist");
+                    setSnackbarMessage("Added to wishlist");
                     setSnackbarVisible(true);
                   }
                   setWishlistAdded(!wishlistAdded);
