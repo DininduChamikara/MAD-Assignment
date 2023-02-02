@@ -4,6 +4,7 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import TabIcon from "./components/TabIcon";
+import { SnackBarContext } from "./contexts/SnackBarContext";
 import AddMovie from "./pages/AddMovie";
 import DashBoard from "./pages/DashBoard";
 import EditMovie from "./pages/EditMovie";
@@ -16,24 +17,30 @@ import theme from "./theme/theme";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+
+  const [snackbarVisible, setSnackbarVisible] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={screenOptionsSetter}
-          activeColor={"#2588F6"}
-          barStyle={styles.container}
-          shifting={true}
-        >
-          {/*Add new screens here*/}
-          <Tab.Screen name={ROUTES.HOME} component={Home} />
-          <Tab.Screen name={ROUTES.ADD_MOVIE} component={AddMovie} />
-          {/* <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} /> */}
-          <Tab.Screen name={ROUTES.SEARCH_MOVIE} component={SearchMovie} />
-          <Tab.Screen name={ROUTES.DASHBOARD} component={DashBoard} />
-          <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <SnackBarContext.Provider value={{snackbarVisible, setSnackbarVisible, snackbarMessage, setSnackbarMessage}}>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={screenOptionsSetter}
+            activeColor={"#2588F6"}
+            barStyle={styles.container}
+            shifting={true}
+          >
+            {/*Add new screens here*/}
+            <Tab.Screen name={ROUTES.HOME} component={Home} />
+            <Tab.Screen name={ROUTES.ADD_MOVIE} component={AddMovie} />
+            {/* <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} /> */}
+            <Tab.Screen name={ROUTES.SEARCH_MOVIE} component={SearchMovie} />
+            <Tab.Screen name={ROUTES.DASHBOARD} component={DashBoard} />
+            <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SnackBarContext.Provider>
     </PaperProvider>
   );
 }
