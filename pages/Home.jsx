@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 import DialogAlert from "../components/DialogAlert/DialogAlert";
@@ -8,8 +9,8 @@ import ROUTES from "./ROUTES";
 
 const movieCardsData = [
   {
-    title: "Avatar - The way of water",
-    year: 2023,
+    title: "Avatar",
+    year: 2009,
     updatedDate: "31/01/2023",
     watched: true,
     wishlistAdded: true,

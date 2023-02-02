@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Dimensions, FlatList, StyleSheet, View } from "react-native";
 import { ActivityIndicator, Searchbar, Text } from "react-native-paper";
@@ -12,16 +13,25 @@ const SearchMovie = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("divergent");
 
+  // Dinindu Added
+  const route = useRoute();
+
+  useEffect(() => {
+    setSearchText(route.params.movieName);
+  }, [route.params.movieName])
+  //
+
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_LINK}&s=divergent`)
+    // fetch(`${API_LINK}&s=divergent`)
+    fetch(`${API_LINK}&s=${route.params.movieName}`)
       .then((res) => res.json())
       .then((data) => setMovies(data.Search))
       .catch((e) => console.log(e))
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [route.params.movieName]);
 
   const handleClick = () => {
     setIsLoading(true);
