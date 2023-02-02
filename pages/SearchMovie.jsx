@@ -17,21 +17,22 @@ const SearchMovie = ({ navigation }) => {
   const route = useRoute();
 
   useEffect(() => {
-    setSearchText(route.params.movieName);
-  }, [route.params.movieName])
-  //
+    if (route.params) {
+      setSearchText(route.params.movieName);
+    }
+  }, [route.params]);
 
   useEffect(() => {
     setIsLoading(true);
     // fetch(`${API_LINK}&s=divergent`)
-    fetch(`${API_LINK}&s=${route.params.movieName}`)
+    fetch(`${API_LINK}&s=${searchText}`)
       .then((res) => res.json())
       .then((data) => setMovies(data.Search))
       .catch((e) => console.log(e))
       .finally(() => {
         setIsLoading(false);
       });
-  }, [route.params.movieName]);
+  }, [searchText]);
 
   const handleClick = () => {
     setIsLoading(true);

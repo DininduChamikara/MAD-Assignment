@@ -5,6 +5,7 @@ import DialogAlert from "../components/DialogAlert/DialogAlert";
 import PageWrapper from "../components/Layout/PageWrapper";
 import MovieCard from "../components/MovieCard/MovieCard";
 import SearchBarComponent from "../components/SearchBar/SearchBar";
+import SnackBarComponent from "../components/SnackBar/SnackBar";
 import ROUTES from "./ROUTES";
 
 const movieCardsData = [
@@ -81,6 +82,7 @@ const Home = ({ navigation }) => {
         ))}
       </ScrollView>
       <DialogAlert/>
+      <SnackBarComponent/>
     </PageWrapper>
   );
 };
