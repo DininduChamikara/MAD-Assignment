@@ -1,16 +1,21 @@
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import { Snackbar } from "react-native-paper";
+import { SnackBarContext } from "../../contexts/SnackBarContext";
 
 const SnackBarComponent = () => {
-  const [visible, setVisible] = React.useState(true);
 
-  const onDismissSnackBar = () => setVisible(false);
+  const {snackbarVisible, setSnackbarVisible, snackbarMessage, setSnackbarMessage} = React.useContext(SnackBarContext);
+
+  const onDismissSnackBar = () => {
+    setSnackbarVisible(false);
+    setSnackbarMessage("");
+  } 
 
   return (
     <View style={styles.container}>
-      <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
-        Hey there! I'm a Snackbar.
+      <Snackbar visible={snackbarVisible} onDismiss={onDismissSnackBar}>
+        {snackbarMessage ? snackbarMessage : ""}
       </Snackbar>
     </View>
   );

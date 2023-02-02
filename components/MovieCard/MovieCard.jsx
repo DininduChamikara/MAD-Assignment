@@ -1,17 +1,19 @@
 import * as React from "react";
 import { View } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
+import { SnackBarContext } from "../../contexts/SnackBarContext";
 import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
 
 const MovieCard = ({ cardData, navigation }) => {
-
   const [wishlistAdded, setWishlistAdded] = React.useState(
     cardData ? cardData.wishlistAdded : false
   );
 
   const [dropdownOpened, setDropdownOpened] = React.useState(false);
 
+  const { setSnackbarVisible, setSnackbarMessage } =
+    React.useContext(SnackBarContext);
 
   return (
     <>
@@ -42,12 +44,17 @@ const MovieCard = ({ cardData, navigation }) => {
             />
           )}
           right={(props) => (
-            <View style={{display:'flex', flexDirection:'row', }}>
+            <View style={{ display: "flex", flexDirection: "row" }}>
               <IconButton
                 {...props}
                 icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
                 onPress={() => {
-                  if(wishlistAdded){
+                  if (wishlistAdded) {
+                    setSnackbarMessage("Movie remove from wishlist");
+                    setSnackbarVisible(true);
+                  } else {
+                    setSnackbarMessage("Movie added to wishlist");
+                    setSnackbarVisible(true);
                   }
                   setWishlistAdded(!wishlistAdded);
                 }}
