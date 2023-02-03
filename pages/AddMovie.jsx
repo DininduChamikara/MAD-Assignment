@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { View } from "react-native";
 import { IconButton, Text, TextInput } from "react-native-paper";
@@ -6,8 +7,17 @@ import PageWrapper from "../components/Layout/PageWrapper";
 
 const AddMovie = ({ navigation }) => {
 
+  const route = useRoute();
+
   const [movieName, setMovieName] = React.useState("");
   const [movieYear, setMovieYear] = React.useState();
+
+  React.useEffect(() => {
+    if (route.params) {
+      setMovieName(route.params.movieName);
+      setMovieYear(route.params.movieYear);
+    }
+  }, [route.params]);
 
   return (
     <PageWrapper>
