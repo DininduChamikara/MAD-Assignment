@@ -13,7 +13,8 @@ const SearchMovie = ({ navigation, route }) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState(
-    route.params.movieName || "divergent"
+    "divergent"
+    // route.params.movieName || "divergent"
   );
 
   const fetchData = useCallback((query) => {
@@ -30,8 +31,12 @@ const SearchMovie = ({ navigation, route }) => {
   //effect will run only when focus screen, not for every key stroke to save api requests ):
   useFocusEffect(
     useCallback(() => {
-      setSearchText(route.params.movieName);
-      fetchData(route.params.movieName);
+      if (route.params) {
+        setSearchText(route.params.movieName);
+        fetchData(route.params.movieName);
+      }else{
+        fetchData(searchText);
+      }
     }, [route])
   );
 
