@@ -1,8 +1,12 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import TabIcon from "./components/TabIcon";
+
+import { SnackBarContext } from "./contexts/SnackBarContext";
+
 import AddMovie from "./pages/AddMovie";
 import DashBoard from "./pages/DashBoard";
 import EditMovie from "./pages/EditMovie";
@@ -15,9 +19,14 @@ import theme from "./theme/theme";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+
+  const [snackbarVisible, setSnackbarVisible] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
+      <SnackBarContext.Provider value={{snackbarVisible, setSnackbarVisible, snackbarMessage, setSnackbarMessage}}>
+       <NavigationContainer>
         <Tab.Navigator
           screenOptions={screenOptionsSetter}
           activeColor={"#2588F6"}
@@ -35,6 +44,7 @@ export default function App() {
           <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />
         </Tab.Navigator>
       </NavigationContainer>
+      </SnackBarContext.Provider>
     </PaperProvider>
   );
 }

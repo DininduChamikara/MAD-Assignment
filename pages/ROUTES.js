@@ -1,6 +1,6 @@
 export default ROUTES = {
   HOME: "Home",
-  ADD_MOVIE: "Add Movie",
+  ADD_MOVIE: "Add/Edit",
   EDIT_MOVIE: "Edit Movie",
   SEARCH_MOVIE: {
     MAIN: "Search",
