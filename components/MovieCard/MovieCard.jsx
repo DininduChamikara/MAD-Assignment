@@ -69,6 +69,7 @@ const MovieCard = ({ cardData, navigation }) => {
                   navigation.navigate(ROUTES.SEARCH_MOVIE.MAIN, {
                     params: { movieName: `${cardData ? cardData.title : ""}` },
                     screen: ROUTES.SEARCH_MOVIE.ALL,
+
                   });
                 }}
               />

@@ -6,9 +6,22 @@ import PageWrapper from "../components/Layout/PageWrapper";
 
 const AddMovie = ({ navigation }) => {
   const route = useRoute();
+  // console.log(route.params)
+
+  const clearParams = () => {
+    navigation.setParams({ movieName: null, movieYear: null });
+  };
 
   const [movieName, setMovieName] = React.useState("");
   const [movieYear, setMovieYear] = React.useState();
+
+  // React.useEffect(() => {
+  //   const unsubscribe = navigation.addListener("focus", () => {
+  //     // The screen is focused
+  //     // Call any action
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
 
   React.useEffect(() => {
     if (route.params) {
@@ -34,7 +47,12 @@ const AddMovie = ({ navigation }) => {
         <IconButton
           icon="check-circle-outline"
           size={30}
-          onPress={() => console.log("Pressed")}
+          onPress={() => {
+            // After the save function
+            setMovieName("")
+            setMovieYear();
+            clearParams();
+          }}
         />
       </View>
 
