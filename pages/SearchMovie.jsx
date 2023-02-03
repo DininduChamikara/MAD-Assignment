@@ -4,6 +4,7 @@ import { ActivityIndicator, Searchbar, Text } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
 import MovieCard from "../components/MovieCard";
 import { API_LINK } from "../keys";
+import ROUTES from "./ROUTES";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -59,6 +60,11 @@ const SearchMovie = ({ navigation }) => {
                 name={item.Title}
                 photo={item.Poster}
                 year={item.Year}
+                onPress={() =>
+                  navigation.navigate(ROUTES.SEARCH_MOVIE.DETAIL, {
+                    imdbID: item.imdbID,
+                  })
+                }
               />
             )}
             keyExtractor={(item) => item.imdbID}
