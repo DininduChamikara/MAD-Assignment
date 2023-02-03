@@ -16,12 +16,12 @@ const WishlistCard = ({ cardData, navigation }) => {
     <>
       <Card
         style={{ width: "100%", marginVertical: 5 }}
-        onPress={() => {
-          navigation.navigate(ROUTES.ADD_MOVIE, {
-            movieName: `${cardData ? cardData.title : ""}`,
-            movieYear: `${cardData ? cardData.year : ""}`,
-          });
-        }}
+        // onPress={() => {
+        //   navigation.navigate(ROUTES.ADD_MOVIE, {
+        //     movieName: `${cardData ? cardData.title : ""}`,
+        //     movieYear: `${cardData ? cardData.year : ""}`,
+        //   });
+        // }}
       >
         <Card.Title
           title={cardData ? cardData.title : ""}
@@ -47,7 +47,7 @@ const WishlistCard = ({ cardData, navigation }) => {
                 icon="book-search-outline"
                 size={25}
                 onPress={() => {
-                  navigation.navigate(ROUTES.SEARCH_MOVIE, {
+                  navigation.navigate(ROUTES.SEARCH_MOVIE.ALL, {
                     movieName: `${cardData ? cardData.title : ""}`,
                   });
                 }}

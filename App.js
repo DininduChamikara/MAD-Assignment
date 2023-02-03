@@ -35,7 +35,7 @@ export default function App() {
         >
           <Tab.Screen name={ROUTES.HOME} component={Home} />
           <Tab.Screen name={ROUTES.ADD_MOVIE} component={AddMovie} />
-          <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} />
+          {/* <Tab.Screen name={ROUTES.EDIT_MOVIE} component={EditMovie} /> */}
           <Tab.Screen
             name={ROUTES.SEARCH_MOVIE.MAIN}
             component={SearchMovieNavigator}

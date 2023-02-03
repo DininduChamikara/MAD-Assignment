@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 import DialogAlert from "../components/DialogAlert/DialogAlert";
