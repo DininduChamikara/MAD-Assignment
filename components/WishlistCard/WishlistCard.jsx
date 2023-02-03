@@ -47,8 +47,9 @@ const WishlistCard = ({ cardData, navigation }) => {
                 icon="book-search-outline"
                 size={25}
                 onPress={() => {
-                  navigation.navigate(ROUTES.SEARCH_MOVIE, {
-                    movieName: `${cardData ? cardData.title : ""}`,
+                  navigation.navigate(ROUTES.SEARCH_MOVIE.MAIN, {
+                    params: { movieName: `${cardData ? cardData.title : ""}` },
+                    screen: ROUTES.SEARCH_MOVIE.ALL,
                   });
                 }}
               />

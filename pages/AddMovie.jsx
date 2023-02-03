@@ -2,11 +2,9 @@ import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { View } from "react-native";
 import { IconButton, Text, TextInput } from "react-native-paper";
-import DialogAlert from "../components/DialogAlert/DialogAlert";
 import PageWrapper from "../components/Layout/PageWrapper";
 
 const AddMovie = ({ navigation }) => {
-
   const route = useRoute();
 
   const [movieName, setMovieName] = React.useState("");
@@ -23,16 +21,16 @@ const AddMovie = ({ navigation }) => {
     <PageWrapper>
       <View
         style={{
-          paddingHorizontal:5,
+          paddingHorizontal: 5,
           width: "100%",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          alignItems:'center'
+          alignItems: "center",
         }}
       >
         <Text variant="headlineMedium">{"Add/Edit Movie"}</Text>
-        
+
         <IconButton
           icon="check-circle-outline"
           size={30}
