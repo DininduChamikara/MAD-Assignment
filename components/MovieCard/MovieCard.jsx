@@ -26,7 +26,10 @@ const MovieCard = ({ cardData, navigation }) => {
           if (dropdownOpened) {
             setDropdownOpened(false);
           } else {
-            navigation.navigate(ROUTES.ADD_MOVIE);
+            navigation.navigate(ROUTES.ADD_MOVIE, {
+              movieName: `${cardData ? cardData.title : ""}`,
+              movieYear: `${cardData ? cardData.year : ""}`,
+            });
           }
         }}
       >
