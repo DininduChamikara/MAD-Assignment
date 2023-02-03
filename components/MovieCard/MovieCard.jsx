@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View } from "react-native";
-import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
+import { Avatar, Card, IconButton, Text } from "react-native-paper";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
 import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
@@ -66,8 +66,10 @@ const MovieCard = ({ cardData, navigation }) => {
                 icon="book-search-outline"
                 size={25}
                 onPress={() => {
-                  navigation.navigate(ROUTES.SEARCH_MOVIE.ALL, {
-                    movieName: `${cardData ? cardData.title : ""}`,
+                  navigation.navigate(ROUTES.SEARCH_MOVIE.MAIN, {
+                    params: { movieName: `${cardData ? cardData.title : ""}` },
+                    screen: ROUTES.SEARCH_MOVIE.ALL,
+
                   });
                 }}
               />

@@ -41,12 +41,14 @@ const SearchMovieDetail = ({ route, navigation }) => {
             <Card.Content>
               <Text style={styles.title}>{movie?.Plot}</Text>
             </Card.Content>
-            <View style={styles.chips}>
-              <Chip icon="information">{movie?.Rated}</Chip>
-              <Chip icon="update">{movie?.Released}</Chip>
-              <Chip icon="timeline-check">{movie?.Runtime}</Chip>
-              <Chip icon="format-list-numbered">{movie.imdbRating}</Chip>
-            </View>
+            <ScrollView horizontal={true}>
+              <View style={styles.chips}>
+                <Chip icon="information">{movie?.Rated}</Chip>
+                <Chip icon="update">{movie?.Released}</Chip>
+                <Chip icon="timeline-check">{movie?.Runtime}</Chip>
+                <Chip icon="format-list-numbered">{movie.imdbRating}</Chip>
+              </View>
+            </ScrollView>
           </Card>
         </View>
       </ScrollView>
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: 4,
+    gap: 3,
   },
 });
 

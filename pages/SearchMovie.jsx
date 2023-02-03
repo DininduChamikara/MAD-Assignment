@@ -1,5 +1,5 @@
-import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 import { Dimensions, FlatList, StyleSheet, View } from "react-native";
 import { ActivityIndicator, Searchbar, Text } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
@@ -9,42 +9,33 @@ import ROUTES from "./ROUTES";
 
 const windowWidth = Dimensions.get("window").width;
 
-const SearchMovie = ({ navigation }) => {
+const SearchMovie = ({ navigation, route }) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchText, setSearchText] = useState("divergent");
+  const [searchText, setSearchText] = useState(
+    route.params.movieName || "divergent"
+  );
 
-  // Dinindu Added
-  const route = useRoute();
+  const fetchData = useCallback((query) => {
+    setIsLoading(true);
+    fetch(`${API_LINK}&s=${query}`)
+      .then((res) => res.json())
+      .then((data) => setMovies(data.Search))
+      .catch((e) => console.log(e))
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
-  useEffect(() => {
-    if (route.params) {
+  //effect will run only when focus screen, not for every key stroke to save api requests ):
+  useFocusEffect(
+    useCallback(() => {
       setSearchText(route.params.movieName);
-    }
-  }, [route.params]);
+      fetchData(route.params.movieName);
+    }, [route])
+  );
 
-  useEffect(() => {
-    setIsLoading(true);
-    // fetch(`${API_LINK}&s=divergent`)
-    fetch(`${API_LINK}&s=${searchText}`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search))
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [searchText]);
-
-  const handleClick = () => {
-    setIsLoading(true);
-    fetch(`${API_LINK}&s=${searchText}`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search))
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+  const handleClick = () => fetchData(searchText);
 
   return (
     <PageWrapper>
