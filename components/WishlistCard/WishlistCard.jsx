@@ -17,18 +17,16 @@ const WishlistCard = ({ cardData, navigation }) => {
       <Card
         style={{ width: "100%", marginVertical: 5 }}
         onPress={() => {
-          navigation.navigate(ROUTES.ADD_MOVIE);
+          navigation.navigate(ROUTES.ADD_MOVIE, {
+            movieName: `${cardData ? cardData.title : ""}`,
+            movieYear: `${cardData ? cardData.year : ""}`,
+          });
         }}
       >
         <Card.Title
           title={cardData ? cardData.title : ""}
           subtitle={cardData ? cardData.year : ""}
-          left={(props) => (
-            <Avatar.Icon
-              {...props}
-              icon="cards-heart"
-            />
-          )}
+          left={(props) => <Avatar.Icon {...props} icon="cards-heart" />}
           right={(props) => (
             <View style={{ display: "flex", flexDirection: "row" }}>
               <IconButton
