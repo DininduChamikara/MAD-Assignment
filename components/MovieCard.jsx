@@ -4,9 +4,9 @@ import { Card, Text } from "react-native-paper";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const MovieCard = ({ name, photo, year }) => {
+const MovieCard = ({ name, photo, year, onPress }) => {
   return (
-    <Card style={styles.container}>
+    <Card style={styles.container} onLongPress={onPress}>
       <Card.Cover
         style={styles.photo}
         source={{
