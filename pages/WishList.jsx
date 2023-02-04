@@ -74,7 +74,7 @@ const WishList = ({ navigation }) => {
           </View>
         ))}
       </ScrollView>
-      <SnackBarComponent/>
+      <SnackBarComponent />
     </PageWrapper>
   );
 };
