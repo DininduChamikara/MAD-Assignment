@@ -2,6 +2,7 @@ import * as React from "react";
 import { View } from "react-native";
 import { Avatar, Card, IconButton, Text } from "react-native-paper";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
+import { Update } from "../../core/databaseCrud";
 import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
 
@@ -29,6 +30,7 @@ const MovieCard = ({ cardData, navigation }) => {
             navigation.navigate(ROUTES.ADD_MOVIE, {
               movieName: `${cardData ? cardData.title : ""}`,
               movieYear: `${cardData ? cardData.year : ""}`,
+              id: `${cardData ? cardData.id : ""}`,
             });
           }
         }}
@@ -53,11 +55,25 @@ const MovieCard = ({ cardData, navigation }) => {
                 icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
                 onPress={() => {
                   if (wishlistAdded) {
-                    setSnackbarMessage("Removed from wishlist");
-                    setSnackbarVisible(true);
+                    Update(
+                      cardData.id,
+                      cardData.title,
+                      cardData.year,
+                      false
+                    ).then(() => {
+                      setSnackbarMessage("Removed from wishlist");
+                      setSnackbarVisible(true);
+                    });
                   } else {
-                    setSnackbarMessage("Added to wishlist");
-                    setSnackbarVisible(true);
+                    Update(
+                      cardData.id,
+                      cardData.title,
+                      cardData.year,
+                      true
+                    ).then(() => {
+                      setSnackbarMessage("Added to wishlist");
+                      setSnackbarVisible(true);
+                    });
                   }
                   setWishlistAdded(!wishlistAdded);
                 }}
@@ -69,7 +85,6 @@ const MovieCard = ({ cardData, navigation }) => {
                   navigation.navigate(ROUTES.SEARCH_MOVIE.MAIN, {
                     params: { movieName: `${cardData ? cardData.title : ""}` },
                     screen: ROUTES.SEARCH_MOVIE.ALL,
-
                   });
                 }}
               />
@@ -82,7 +97,12 @@ const MovieCard = ({ cardData, navigation }) => {
           </Text>
         </Card.Content>
       </Card>
-      {dropdownOpened && <CardMenu setDropdownOpened={setDropdownOpened} />}
+      {dropdownOpened && (
+        <CardMenu
+          setDropdownOpened={setDropdownOpened}
+          cardData={cardData ? cardData : ""}
+        />
+      )}
     </>
   );
 };

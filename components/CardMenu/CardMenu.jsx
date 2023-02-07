@@ -1,14 +1,19 @@
 import * as React from "react";
 import { View } from "react-native";
 import { Menu } from "react-native-paper";
-import DialogAlert from "../DialogAlert/DialogAlert";
+import { SnackBarContext } from "../../contexts/SnackBarContext";
+import { Delete, Update } from "../../core/databaseCrud";
 
 const DELETE_MESSAGE = "Movie is Deleted!";
-const WATCHED_MESSAGE = "The movie marked as watched!"
+const WATCHED_MESSAGE = "Movie marked as watched!";
+const NOT_WATCHED_MESSAGE = "Movie removed from watched!";
 
-const CardMenu = ({ setDropdownOpened }) => {
-  const [alertMessage, setAlertMessage] = React.useState("")
-  const [visible, setVisible] = React.useState(false);
+const WATCHED_TITLE = "Remove from watched!";
+const NOT_WATCHED_TITLE = "Marked as watched!";
+
+const CardMenu = ({ setDropdownOpened, cardData }) => {
+  const { setSnackbarVisible, setSnackbarMessage } =
+    React.useContext(SnackBarContext);
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -16,23 +21,40 @@ const CardMenu = ({ setDropdownOpened }) => {
         style={{ maxWidth: "100%" }}
         leadingIcon="checkbox-marked-circle-outline"
         onPress={() => {
-          setAlertMessage(WATCHED_MESSAGE);
-          setVisible(true);
-          // setDropdownOpened(false);
+          if (cardData) {
+            Update(
+              cardData.id,
+              cardData.title,
+              cardData.year,
+              cardData.wishlistAdded,
+              !cardData.watched
+            ).then(() => {
+              if (cardData.watched) {
+                setSnackbarMessage(NOT_WATCHED_MESSAGE);
+                setDropdownOpened(false);
+                setSnackbarVisible(true);
+              } else {
+                setSnackbarMessage(WATCHED_MESSAGE);
+                setDropdownOpened(false);
+                setSnackbarVisible(true);
+              }
+            });
+          }
         }}
-        title="Marked as watched"
+        title={cardData && cardData.watched ? WATCHED_TITLE : NOT_WATCHED_TITLE}
       />
       <Menu.Item
         style={{ maxWidth: "100%" }}
         leadingIcon="delete-outline"
         onPress={() => {
-          // setDropdownOpened(false);
-          setAlertMessage(DELETE_MESSAGE);
-          setVisible(true);
+          Delete(cardData.id).then(() => {
+            setSnackbarMessage(DELETE_MESSAGE);
+            setDropdownOpened(false);
+            setSnackbarVisible(true);
+          });
         }}
         title="Delete the movie record"
       />
-      <DialogAlert visible={visible} setVisible={setVisible} setDropdownOpened={setDropdownOpened} message={alertMessage} />
     </View>
   );
 };
