@@ -2,6 +2,7 @@ import * as React from "react";
 import { View } from "react-native";
 import { Avatar, Card, IconButton, Text } from "react-native-paper";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
+import { Update } from "../../core/databaseCrud";
 import ROUTES from "../../pages/ROUTES";
 
 const WishlistCard = ({ cardData, navigation }) => {
@@ -14,15 +15,7 @@ const WishlistCard = ({ cardData, navigation }) => {
 
   return (
     <>
-      <Card
-        style={{ width: "100%", marginVertical: 5 }}
-        // onPress={() => {
-        //   navigation.navigate(ROUTES.ADD_MOVIE, {
-        //     movieName: `${cardData ? cardData.title : ""}`,
-        //     movieYear: `${cardData ? cardData.year : ""}`,
-        //   });
-        // }}
-      >
+      <Card style={{ width: "100%", marginVertical: 5 }}>
         <Card.Title
           title={cardData ? cardData.title : ""}
           subtitle={cardData ? cardData.year : ""}
@@ -33,12 +26,26 @@ const WishlistCard = ({ cardData, navigation }) => {
                 {...props}
                 icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
                 onPress={() => {
-                  if (wishlistAdded) {
-                    setSnackbarMessage("Removed from wishlist");
-                    setSnackbarVisible(true);
+                  if (cardData.wishlistAdded) {
+                    Update(
+                      cardData.id,
+                      cardData.title,
+                      cardData.year,
+                      false
+                    ).then(() => {
+                      setSnackbarMessage("Removed from wishlist");
+                      setSnackbarVisible(true);
+                    });
                   } else {
-                    setSnackbarMessage("Added to wishlist");
-                    setSnackbarVisible(true);
+                    Update(
+                      cardData.id,
+                      cardData.title,
+                      cardData.year,
+                      true
+                    ).then(() => {
+                      setSnackbarMessage("Added to wishlist");
+                      setSnackbarVisible(true);
+                    });
                   }
                   setWishlistAdded(!wishlistAdded);
                 }}
@@ -50,7 +57,6 @@ const WishlistCard = ({ cardData, navigation }) => {
                   navigation.navigate(ROUTES.SEARCH_MOVIE.MAIN, {
                     params: { movieName: `${cardData ? cardData.title : ""}` },
                     screen: ROUTES.SEARCH_MOVIE.ALL,
-
                   });
                 }}
               />

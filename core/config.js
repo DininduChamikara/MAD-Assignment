@@ -26,6 +26,3 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 export const movieColRef = collection(db, "MovieCollection");
-// console.log(auth.currentUser.uid);
-// export const currentUser = { uid: "sYPSrbnRKkfI1P8fC3MSDPWAQwF2" };
-// export const currentUser = auth.currentUser;

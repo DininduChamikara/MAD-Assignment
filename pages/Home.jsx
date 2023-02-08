@@ -1,3 +1,4 @@
+import { QuerySnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -6,10 +7,8 @@ import PageWrapper from "../components/Layout/PageWrapper";
 import MovieCard from "../components/MovieCard/MovieCard";
 import SearchBarComponent from "../components/SearchBar/SearchBar";
 import SnackBarComponent from "../components/SnackBar/SnackBar";
-import { SnackBarContext } from "../contexts/SnackBarContext";
-import { auth, currentUser } from "../core/config";
+import { auth, db, movieColRef } from "../core/config";
 import { Read } from "../core/databaseCrud";
-// import dotenv from  'dotenv'
 
 // const movieCardsData = [
 //   {
@@ -48,10 +47,7 @@ const Home = ({ navigation }) => {
 
   const [movieData, setMovieData] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const { snackbarVisible } = React.useContext(SnackBarContext);
-
-  const [searchQuery, setSearchQuery] = React.useState('');
-
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -67,16 +63,21 @@ const Home = ({ navigation }) => {
         });
     });
     return unsubscribe;
-  }, [navigation, currentUser]);
+  }, [navigation, auth.currentUser]);
 
   useEffect(() => {
-    const filteredData = movieData.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filteredData = movieData.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     setFilteredMovies(filteredData);
-  }, [searchQuery, movieData])
+  }, [searchQuery, movieData]);
 
   return (
     <PageWrapper>
-      <SearchBarComponent searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBarComponent
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <ScrollView style={{ width: "100%" }}>
         {filteredMovies.map((item, index) => (
           <View key={index}>
