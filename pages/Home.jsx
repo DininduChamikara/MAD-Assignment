@@ -1,10 +1,12 @@
 import { QuerySnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { useTheme } from "react-native-paper";
+import { Avatar, IconButton, Text, useTheme } from "react-native-paper";
 import DialogAlert from "../components/DialogAlert/DialogAlert";
+import ExitMenu from "../components/ExitMenu/ExitMenu";
 import PageWrapper from "../components/Layout/PageWrapper";
 import MovieCard from "../components/MovieCard/MovieCard";
+import PageHeader from "../components/PageHeader/PageHeader";
 import SearchBarComponent from "../components/SearchBar/SearchBar";
 import SnackBarComponent from "../components/SnackBar/SnackBar";
 import { auth, db, movieColRef } from "../core/config";
@@ -49,6 +51,8 @@ const Home = ({ navigation }) => {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [searchQuery, setSearchQuery] = React.useState("");
 
+  const [exitMenuOpen, setExitMenuOpen] = useState(false);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // The screen is focused
@@ -73,21 +77,30 @@ const Home = ({ navigation }) => {
   }, [searchQuery, movieData]);
 
   return (
-    <PageWrapper>
-      <SearchBarComponent
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      <ScrollView style={{ width: "100%" }}>
-        {filteredMovies.map((item, index) => (
-          <View key={index}>
-            <MovieCard navigation={navigation} cardData={item} />
-          </View>
-        ))}
-      </ScrollView>
-      <DialogAlert />
-      <SnackBarComponent />
-    </PageWrapper>
+    <>
+      {exitMenuOpen && (
+        <View style={{position:"absolute", top:110}}>
+          <ExitMenu navigation={navigation} />
+        </View>
+      )}
+      <PageWrapper>
+        <PageHeader exitMenuOpen={exitMenuOpen} setExitMenuOpen={setExitMenuOpen} />
+        <SearchBarComponent
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+
+        <ScrollView style={{ width: "100%" }}>
+          {filteredMovies.map((item, index) => (
+            <View key={index}>
+              <MovieCard navigation={navigation} cardData={item} />
+            </View>
+          ))}
+        </ScrollView>
+        <DialogAlert />
+        <SnackBarComponent />
+      </PageWrapper>
+    </>
   );
 };
 
