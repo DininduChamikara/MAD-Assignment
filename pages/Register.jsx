@@ -45,17 +45,10 @@ const Register = ({ navigation }) => {
 
       <Button
         onPress={() => {
-          navigation.navigate(Main);
-        }}
-      >
-        Main
-      </Button>
-      <Button
-        onPress={() => {
           navigation.navigate(Login);
         }}
       >
-        Login
+        Login Page
       </Button>
     </PageWrapper>
   );

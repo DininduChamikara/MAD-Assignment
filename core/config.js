@@ -10,16 +10,6 @@ import { getAuth } from "firebase/auth";
 
 import config from "../config";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyC1988Md9aVKI4i2ILYEsLbDlzljJn3x8Y",
-//   authDomain: "mad-assignment-992a6.firebaseapp.com",
-//   projectId: "mad-assignment-992a6",
-//   storageBucket: "mad-assignment-992a6.appspot.com",
-//   messagingSenderId: "326292296179",
-//   appId: "1:326292296179:web:5b82f48453df33ea688286",
-//   measurementId: "G-0XJ3SZ5WML",
-// };
-
 const firebaseConfig = {
   apiKey: config.API_KEY,
   authDomain: config.AUTH_DOMAIN,
