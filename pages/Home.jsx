@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import Config from "react-native-config";
 import { useTheme } from "react-native-paper";
 import DialogAlert from "../components/DialogAlert/DialogAlert";
 import PageWrapper from "../components/Layout/PageWrapper";
@@ -11,7 +10,6 @@ import { SnackBarContext } from "../contexts/SnackBarContext";
 import { auth, currentUser } from "../core/config";
 import { Read } from "../core/databaseCrud";
 // import dotenv from  'dotenv'
-
 
 // const movieCardsData = [
 //   {
@@ -45,14 +43,17 @@ import { Read } from "../core/databaseCrud";
 // ];
 
 const Home = ({ navigation }) => {
-
   //to use default theme configured in theme.js
   const { spacing } = useTheme();
 
   const [movieData, setMovieData] = useState([]);
-  const {snackbarVisible} = React.useContext(SnackBarContext);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const { snackbarVisible } = React.useContext(SnackBarContext);
 
-  React.useEffect(() => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+
+  useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       // The screen is focused
       // Call any action
@@ -66,13 +67,18 @@ const Home = ({ navigation }) => {
         });
     });
     return unsubscribe;
-  }, [navigation, currentUser, snackbarVisible]);
+  }, [navigation, currentUser]);
+
+  useEffect(() => {
+    const filteredData = movieData.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    setFilteredMovies(filteredData);
+  }, [searchQuery, movieData])
 
   return (
     <PageWrapper>
-      <SearchBarComponent />
+      <SearchBarComponent searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <ScrollView style={{ width: "100%" }}>
-        {movieData.map((item, index) => (
+        {filteredMovies.map((item, index) => (
           <View key={index}>
             <MovieCard navigation={navigation} cardData={item} />
           </View>
