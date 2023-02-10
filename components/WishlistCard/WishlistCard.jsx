@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View } from "react-native";
 import { Avatar, Card, IconButton, Text } from "react-native-paper";
+import { useMovies } from "../../contexts/MovieProvider";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
 import { Update } from "../../core/databaseCrud";
 import ROUTES from "../../pages/ROUTES";
@@ -13,9 +14,16 @@ const WishlistCard = ({ cardData, navigation }) => {
   const { setSnackbarVisible, setSnackbarMessage } =
     React.useContext(SnackBarContext);
 
+  const { refreshMovies } = useMovies();
+
   return (
     <>
-      <Card style={{ width: "100%", marginVertical: 5 }}>
+      <Card
+        style={{
+          width: "100%",
+          marginVertical: 5,
+        }}
+      >
         <Card.Title
           title={cardData ? cardData.title : ""}
           subtitle={cardData ? cardData.year : ""}
@@ -33,6 +41,7 @@ const WishlistCard = ({ cardData, navigation }) => {
                       cardData.year,
                       false
                     ).then(() => {
+                      refreshMovies();
                       setSnackbarMessage("Removed from wishlist");
                       setSnackbarVisible(true);
                     });
@@ -43,6 +52,7 @@ const WishlistCard = ({ cardData, navigation }) => {
                       cardData.year,
                       true
                     ).then(() => {
+                      refreshMovies();
                       setSnackbarMessage("Added to wishlist");
                       setSnackbarVisible(true);
                     });

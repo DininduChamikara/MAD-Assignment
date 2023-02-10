@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
+import MovieProvider from "../../contexts/MovieProvider";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
 import AddMovie from "../../pages/AddMovie";
 import DashBoard from "../../pages/DashBoard";
@@ -23,15 +24,16 @@ export default function Main() {
 
   return (
     <PaperProvider theme={theme}>
-      <SnackBarContext.Provider
-        value={{
-          snackbarVisible,
-          setSnackbarVisible,
-          snackbarMessage,
-          setSnackbarMessage,
-        }}
-      >
-        {/* <NavigationContainer> */}
+      <MovieProvider>
+        <SnackBarContext.Provider
+          value={{
+            snackbarVisible,
+            setSnackbarVisible,
+            snackbarMessage,
+            setSnackbarMessage,
+          }}
+        >
+          {/* <NavigationContainer> */}
           <Tab.Navigator
             screenOptions={screenOptionsSetter}
             activeColor={"#2588F6"}
@@ -48,8 +50,9 @@ export default function Main() {
             <Tab.Screen name={ROUTES.DASHBOARD} component={DashBoard} />
             <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />
           </Tab.Navigator>
-        {/* </NavigationContainer> */}
-      </SnackBarContext.Provider>
+          {/* </NavigationContainer> */}
+        </SnackBarContext.Provider>
+      </MovieProvider>
     </PaperProvider>
   );
 }

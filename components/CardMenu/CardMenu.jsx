@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View } from "react-native";
 import { Menu } from "react-native-paper";
+import { useMovies } from "../../contexts/MovieProvider";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
 import { Delete, Update } from "../../core/databaseCrud";
 
@@ -14,6 +15,8 @@ const NOT_WATCHED_TITLE = "Marked as watched!";
 const CardMenu = ({ setDropdownOpened, cardData }) => {
   const { setSnackbarVisible, setSnackbarMessage } =
     React.useContext(SnackBarContext);
+
+  const { refreshMovies } = useMovies();
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -38,6 +41,7 @@ const CardMenu = ({ setDropdownOpened, cardData }) => {
                 setDropdownOpened(false);
                 setSnackbarVisible(true);
               }
+              refreshMovies();
             });
           }
         }}
@@ -51,6 +55,7 @@ const CardMenu = ({ setDropdownOpened, cardData }) => {
             setSnackbarMessage(DELETE_MESSAGE);
             setDropdownOpened(false);
             setSnackbarVisible(true);
+            refreshMovies();
           });
         }}
         title="Delete the movie record"

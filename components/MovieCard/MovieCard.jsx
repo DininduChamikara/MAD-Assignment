@@ -1,20 +1,18 @@
-import * as React from "react";
+import { useContext, useState } from "react";
 import { View } from "react-native";
 import { Avatar, Card, IconButton, Text } from "react-native-paper";
+import { useMovies } from "../../contexts/MovieProvider";
 import { SnackBarContext } from "../../contexts/SnackBarContext";
 import { Update } from "../../core/databaseCrud";
 import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
 
 const MovieCard = ({ cardData, navigation }) => {
-  const [wishlistAdded, setWishlistAdded] = React.useState(
-    cardData ? cardData.wishlistAdded : false
-  );
-
-  const [dropdownOpened, setDropdownOpened] = React.useState(false);
-
+  const [dropdownOpened, setDropdownOpened] = useState(false);
   const { setSnackbarVisible, setSnackbarMessage } =
-    React.useContext(SnackBarContext);
+    useContext(SnackBarContext);
+
+  const { refreshMovies } = useMovies();
 
   return (
     <>
@@ -52,15 +50,18 @@ const MovieCard = ({ cardData, navigation }) => {
             <View style={{ display: "flex", flexDirection: "row" }}>
               <IconButton
                 {...props}
-                icon={wishlistAdded ? "cards-heart" : "cards-heart-outline"}
+                icon={
+                  cardData.wishlistAdded ? "cards-heart" : "cards-heart-outline"
+                }
                 onPress={() => {
-                  if (wishlistAdded) {
+                  if (cardData.wishlistAdded) {
                     Update(
                       cardData.id,
                       cardData.title,
                       cardData.year,
                       false
                     ).then(() => {
+                      refreshMovies();
                       setSnackbarMessage("Removed from wishlist");
                       setSnackbarVisible(true);
                     });
@@ -71,11 +72,11 @@ const MovieCard = ({ cardData, navigation }) => {
                       cardData.year,
                       true
                     ).then(() => {
+                      refreshMovies();
                       setSnackbarMessage("Added to wishlist");
                       setSnackbarVisible(true);
                     });
                   }
-                  setWishlistAdded(!wishlistAdded);
                 }}
               />
               <IconButton
