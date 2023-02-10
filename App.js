@@ -8,18 +8,50 @@ import Register from "./pages/Register";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
+function App() {
+  const [initializing, setInitializing] = React.useState(true);
+  const [user, setUser] = React.useState();
+
+  // Handle user state change
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  React.useEffect(() => {
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  if (initializing) return null;
+
+  if (!user) {
+    return (
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}
       >
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
+    );
+  }
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Main" component={Main} />
+    </Stack.Navigator>
+  );
+}
+
+export default () => {
+  return (
+    <NavigationContainer>
+      <App/>
     </NavigationContainer>
   );
 }
