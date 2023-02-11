@@ -10,19 +10,106 @@ import DashboardCard from "../components/DashboardCard/DashboardCard";
 
 const dashboardData = [
   {
-    title: "No. of Films",
-    count: 15,
+    title: "Avatar",
+    year: 2009,
+    updatedDate: "30/01/2023",
+    watched: true,
+    wishlistAdded: true,
   },
   {
-    title: "No. of Films in Wishlist",
+    title: "Harry Potter and the Goblet of Fire",
+    year: 2005,
+    updatedDate: "01/02/2023",
+    watched: false,
+    wishlistAdded: false,
+  },
+  {
+    title: "Avatar - The way of water",
+    year: 2023,
+    updatedDate: "31/01/2023",
+    watched: true,
+    wishlistAdded: true,
+  },
+  {
+    title: "Harry Potter and the Goblet of Fire",
+    year: 2005,
+    updatedDate: "04/02/2023",
+    watched: false,
+    wishlistAdded: false,
+  },
+  {
+    title: "Avatar - The way of water",
+    year: 2023,
+    updatedDate: "31/01/2023",
+    watched: true,
+    wishlistAdded: true,
+  },
+  {
+    title: "Harry Potter and the Goblet of Fire",
+    year: 2005,
+    updatedDate: "01/02/2023",
+    watched: false,
+    wishlistAdded: false,
+  },
+  {
+    title: "Avatar - The way of water",
+    year: 2023,
+    updatedDate: "31/01/2023",
+    watched: false,
+    wishlistAdded: false,
+  },
+  {
+    title: "Harry Potter and the Goblet of Fire",
+    year: 2005,
+    updatedDate: "01/02/2023",
+    watched: true,
+    wishlistAdded: false,
   },
 ];
 
+// Find No. of Films
+const length = dashboardData.length;
+
+// Find Data for No of Films Chart
+const date = [];
+const titleCount = [];
+
+const dataMap = new Map();
+
+dashboardData.forEach((data) => {
+  const { updatedDate, title } = data;
+  if (!dataMap.has(updatedDate)) {
+    dataMap.set(updatedDate, { count: 0, date: updatedDate });
+  }
+  dataMap.get(updatedDate).count++;
+});
+
+const dataArray = Array.from(dataMap.values());
+
+dataArray.forEach((data) => {
+  date.push(data.date);
+  titleCount.push(data.count);
+});
+
+// Count No of Wishlist Added Films
+let wishlistAddedTrueCount = 0;
+for (let i = 0; i < dashboardData.length; i++) {
+  if (dashboardData[i].wishlistAdded === true) {
+    wishlistAddedTrueCount++;
+  }
+}
+
+// Count No of Watched Films
+let watchedCount = 0;
+for (let i = 0; i < dashboardData.length; i++) {
+  if (dashboardData[i].watched === true) {
+    watchedCount++;
+  }
+}
+
 const DashBoard = ({ navigation }) => {
-  // const { spacing } = useTheme();
   return (
     <PageWrapper>
-      {/* <SearchBarComponent /> */}
       <View
         style={{
           padding: 20,
@@ -34,12 +121,33 @@ const DashBoard = ({ navigation }) => {
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Dashboard</Text>
       </View>
       <ScrollView style={{ width: "100%" }}>
-        {dashboardData.map((item, index) => (
-          <View key={index}>
-            {/* <MovieCard navigation={navigation} cardData={item} /> */}
-            <DashboardCard navigation={navigation} dashboardData={item} />
-          </View>
-        ))}
+        <View>
+          {/* No of Films Card */}
+          <DashboardCard
+            chart={true}
+            navigation={navigation}
+            date={date}
+            titleCount={titleCount}
+            title="No. of Films"
+            count={length}
+          />
+
+          {/* No of Wishlist Films Card */}
+          <DashboardCard
+            chart={false}
+            navigation={navigation}
+            title="No. of Wishlist Films"
+            count={wishlistAddedTrueCount}
+          />
+
+          {/* No of Watched Films Card */}
+          <DashboardCard
+            chart={false}
+            navigation={navigation}
+            title="No. of Watched Films"
+            count={watchedCount}
+          />
+        </View>
       </ScrollView>
       <DialogAlert />
       <SnackBarComponent />
