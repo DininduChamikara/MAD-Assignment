@@ -34,7 +34,7 @@ const SearchMovie = ({ navigation, route }) => {
       if (route.params) {
         setSearchText(route.params.movieName);
         fetchData(route.params.movieName);
-      }else{
+      } else {
         fetchData(searchText);
       }
     }, [route])

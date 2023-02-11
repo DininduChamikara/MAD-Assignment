@@ -17,7 +17,9 @@ const PageHeader = ({ setExitMenuOpen, exitMenuOpen }) => {
       }}
     >
       <Avatar.Icon size={40} icon="movie-open-check" />
-      <Text style={{ fontSize: 25, fontWeight: "bold" }}>Movies Collection</Text>
+      <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+        Movies Collection
+      </Text>
       <IconButton
         icon="dots-vertical"
         size={30}
