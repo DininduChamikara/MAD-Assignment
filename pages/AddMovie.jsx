@@ -3,30 +3,26 @@ import * as React from "react";
 import { View } from "react-native";
 import { IconButton, Text, TextInput } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
+import { Create, Update } from "../core/databaseCrud";
+import Home from "./Home";
 
 const AddMovie = ({ navigation }) => {
   const route = useRoute();
   // console.log(route.params)
 
   const clearParams = () => {
-    navigation.setParams({ movieName: null, movieYear: null });
+    navigation.setParams({ id: "", movieName: "", movieYear: null });
   };
 
   const [movieName, setMovieName] = React.useState("");
   const [movieYear, setMovieYear] = React.useState();
-
-  // React.useEffect(() => {
-  //   const unsubscribe = navigation.addListener("focus", () => {
-  //     // The screen is focused
-  //     // Call any action
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
+  const [id, setId] = React.useState("");
 
   React.useEffect(() => {
     if (route.params) {
       setMovieName(route.params.movieName);
       setMovieYear(route.params.movieYear);
+      setId(route.params.id);
     }
   }, [route.params]);
 
@@ -48,9 +44,21 @@ const AddMovie = ({ navigation }) => {
           icon="check-circle-outline"
           size={30}
           onPress={() => {
-            // After the save function
-            setMovieName("")
-            setMovieYear();
+            if (id === "") {
+              Create(movieName, movieYear).then(() => {
+                navigation.navigate(Home);
+                setMovieName("");
+                setMovieYear();
+                setId("");
+              });
+            } else {
+              Update(id, movieName, movieYear).then(() => {
+                navigation.navigate(Home);
+                setMovieName("");
+                setMovieYear();
+                setId("");
+              });
+            }
             clearParams();
           }}
         />

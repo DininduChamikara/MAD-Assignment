@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Text } from "react-native";
 import * as React from "react";
-import { useState } from "react"
 import { Button } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
 import Main from "../components/Main/Main";
@@ -33,7 +33,13 @@ const Register = ({ navigation }) => {
         <Button 
         icon={{ source: 'arrow-left', direction: 'auto' }}
         onPress={() => {
-          navigation.navigate(Main);
+          RegisterUser(email, password)
+            .then((userCredential) => {
+              navigation.navigate(Main);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }}
       ></Button>
       </View>
