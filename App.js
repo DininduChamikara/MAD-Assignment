@@ -5,6 +5,8 @@ import Main from "./components/Main/Main";
 import { auth } from "./core/config";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { SnackBarContext } from "./contexts/SnackBarContext";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -49,9 +51,20 @@ function App() {
 }
 
 export default () => {
+  const [snackbarVisible, setSnackbarVisible] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
   return (
     <NavigationContainer>
-      <App/>
+       <SnackBarContext.Provider
+          value={{
+            snackbarVisible,
+            setSnackbarVisible,
+            snackbarMessage,
+            setSnackbarMessage,
+          }}
+        ><App/></SnackBarContext.Provider>
+      
     </NavigationContainer>
+
   );
 }

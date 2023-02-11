@@ -19,20 +19,12 @@ const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function Main() {
-  const [snackbarVisible, setSnackbarVisible] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  
 
   return (
     <PaperProvider theme={theme}>
       <MovieProvider>
-        <SnackBarContext.Provider
-          value={{
-            snackbarVisible,
-            setSnackbarVisible,
-            snackbarMessage,
-            setSnackbarMessage,
-          }}
-        >
+       
           {/* <NavigationContainer> */}
           <Tab.Navigator
             screenOptions={screenOptionsSetter}
@@ -51,7 +43,6 @@ export default function Main() {
             <Tab.Screen name={ROUTES.WISHLIST} component={WishList} />
           </Tab.Navigator>
           {/* </NavigationContainer> */}
-        </SnackBarContext.Provider>
       </MovieProvider>
     </PaperProvider>
   );
