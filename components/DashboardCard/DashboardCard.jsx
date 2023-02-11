@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { Dimensions } from "react-native";
 import LineChart from "react-native-chart-kit/dist/line-chart";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
+
 import { SnackBarContext } from "../../contexts/SnackBarContext";
 import ROUTES from "../../pages/ROUTES";
 import CardMenu from "../CardMenu/CardMenu";
@@ -17,6 +18,7 @@ const MovieCard = ({
   navigation,
   title,
   dropDownOpened,
+  chartTitle,
 }) => {
   const [dropDown, setDropDown] = React.useState(
     dropDownOpened ? dropDown : true
@@ -71,6 +73,11 @@ const MovieCard = ({
       {/* Chart */}
       {dropDown ? null : (
         <Card style={{ width: "100%", margin: 5 }}>
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <Text style={{ fontSize: 16 }}>{chartTitle ? chartTitle : ""}</Text>
+          </View>
           <LineChart
             data={lineChartData}
             width={screenWidth - 16} // adjust the width of the chart
