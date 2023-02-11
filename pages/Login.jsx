@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
 import Main from "../components/Main/Main";
 import { LoginUser } from "../core/auth";
-import { auth } from "../core/config";
-import { Search } from "../core/databaseCrud";
 import Register from "./Register";
-import ROUTES from "./ROUTES";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState();
