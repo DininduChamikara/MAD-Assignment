@@ -1,78 +1,37 @@
-import { ScrollView, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ScrollView, View } from "react-native";
 import PageWrapper from "../components/Layout/PageWrapper";
 import SearchBarComponent from "../components/SearchBar/SearchBar";
 import SnackBarComponent from "../components/SnackBar/SnackBar";
 import WishlistCard from "../components/WishlistCard/WishlistCard";
-
-const movieCardsData = [
-  {
-    title: "Avatar",
-    year: 2009,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-  {
-    title: "Avatar - The way of water",
-    year: 2023,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-  {
-    title: "Avatar - The way of water",
-    year: 2023,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-  {
-    title: "Avatar - The way of water",
-    year: 2023,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-];
+import { useMovies } from "../contexts/MovieProvider";
+import { auth } from "../core/config";
 
 const WishList = ({ navigation }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const { movies, refreshMovies } = useMovies();
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      refreshMovies();
+    });
+    return unsubscribe;
+  }, [navigation, auth.currentUser]);
+
   return (
     <PageWrapper>
-      <SearchBarComponent />
+      <SearchBarComponent
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <ScrollView style={{ width: "100%" }}>
-        {movieCardsData.map((item, index) => (
-          <View key={index}>
-            <WishlistCard navigation={navigation} cardData={item} />
-          </View>
-        ))}
+        {movies
+          .filter((item) => item.wishlistAdded === true)
+          .map((item, index) => (
+            <View key={index}>
+              <WishlistCard navigation={navigation} cardData={item} />
+            </View>
+          ))}
       </ScrollView>
       <SnackBarComponent />
     </PageWrapper>

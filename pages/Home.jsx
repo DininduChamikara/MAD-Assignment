@@ -1,89 +1,59 @@
-import React, { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { Button, useTheme } from "react-native-paper";
+import React, { useEffect, useState } from "react";
+import { ScrollView, View } from "react-native";
 import DialogAlert from "../components/DialogAlert/DialogAlert";
+import ExitMenu from "../components/ExitMenu/ExitMenu";
 import PageWrapper from "../components/Layout/PageWrapper";
 import MovieCard from "../components/MovieCard/MovieCard";
+import PageHeader from "../components/PageHeader/PageHeader";
 import SearchBarComponent from "../components/SearchBar/SearchBar";
 import SnackBarComponent from "../components/SnackBar/SnackBar";
-import ROUTES from "./ROUTES";
-
-const movieCardsData = [
-  {
-    title: "Avatar",
-    year: 2009,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-  {
-    title: "Avatar - The way of water",
-    year: 2023,
-    updatedDate: "31/01/2023",
-    watched: true,
-    wishlistAdded: true,
-  },
-  {
-    title: "Harry Potter and the Goblet of Fire",
-    year: 2005,
-    updatedDate: "01/02/2023",
-    watched: false,
-    wishlistAdded: false,
-  },
-  // {
-  //   title: "Avatar - The way of water",
-  //   year: 2023,
-  //   updatedDate: "31/01/2023",
-  //   watched: true,
-  //   wishlistAdded: true,
-  // },
-  // {
-  //   title: "Harry Potter and the Goblet of Fire",
-  //   year: 2005,
-  //   updatedDate: "01/02/2023",
-  //   watched: false,
-  //   wishlistAdded: false,
-  // },
-  // {
-  //   title: "Avatar - The way of water",
-  //   year: 2023,
-  //   updatedDate: "31/01/2023",
-  //   watched: true,
-  //   wishlistAdded: true,
-  // },
-  // {
-  //   title: "Harry Potter and the Goblet of Fire",
-  //   year: 2005,
-  //   updatedDate: "01/02/2023",
-  //   watched: false,
-  //   wishlistAdded: false,
-  // },
-];
+import { useMovies } from "../contexts/MovieProvider";
+import { auth } from "../core/config";
 
 const Home = ({ navigation }) => {
-  //to use default theme configured in theme.js
-  const { spacing } = useTheme();
+  const { movies, refreshMovies } = useMovies();
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [exitMenuOpen, setExitMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      refreshMovies();
+    });
+    return unsubscribe;
+  }, [navigation, auth.currentUser]);
 
   return (
-    <PageWrapper>
-      <SearchBarComponent />
-      <ScrollView style={{ width: "100%" }}>
-        {movieCardsData.map((item, index) => (
-          <View key={index}>
-            <MovieCard navigation={navigation} cardData={item} />
-          </View>
-        ))}
-      </ScrollView>
-      <DialogAlert/>
-      <SnackBarComponent/>
-    </PageWrapper>
+    <>
+      {exitMenuOpen && (
+        <View style={{ position: "absolute", top: 110 }}>
+          <ExitMenu navigation={navigation} />
+        </View>
+      )}
+      <PageWrapper>
+        <PageHeader
+          exitMenuOpen={exitMenuOpen}
+          setExitMenuOpen={setExitMenuOpen}
+        />
+        <SearchBarComponent
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+
+        <ScrollView style={{ width: "100%" }}>
+          {movies
+            .filter((item) =>
+              item.title.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((item, index) => (
+              <View key={index}>
+                <MovieCard navigation={navigation} cardData={item} />
+              </View>
+            ))}
+        </ScrollView>
+        <DialogAlert />
+        <SnackBarComponent />
+      </PageWrapper>
+    </>
   );
 };
 
