@@ -9,6 +9,7 @@ import ROUTES from "./ROUTES";
 import { IconButton, TextInput } from "react-native-paper";
 import { View } from "react-native";
 import { Image } from 'react-native';
+import { RegisterUser } from "../core/auth";
 
 const Register = ({ navigation }) => {
 
