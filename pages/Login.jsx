@@ -1,16 +1,12 @@
-import { useEffect, useState, useContext } from 'react'
-import { Text, View } from 'react-native'
+import { useContext, useState } from 'react'
+import { Image, Text, View } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 import PageWrapper from '../components/Layout/PageWrapper'
 import Main from '../components/Main/Main'
+import SnackBarComponent from '../components/SnackBar/SnackBar'
+import { SnackBarContext } from "../contexts/SnackBarContext"
 import { LoginUser } from '../core/auth'
-import { auth } from '../core/config'
-import { Search } from '../core/databaseCrud'
 import Register from './Register'
-import ROUTES from './ROUTES'
-import { Image } from 'react-native'
-import { SnackBarContext } from "../contexts/SnackBarContext";
-import SnackBarComponent from '../components/SnackBar/SnackBar';
 
 
 
