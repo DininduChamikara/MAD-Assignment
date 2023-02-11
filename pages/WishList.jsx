@@ -43,6 +43,9 @@ const WishList = ({ navigation }) => {
         )}
         {movies
           .filter((item) => item.wishlistAdded === true)
+          .filter((item) =>
+            item.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
           .map((item, index) => (
             <View key={index}>
               <WishlistCard navigation={navigation} cardData={item} />
