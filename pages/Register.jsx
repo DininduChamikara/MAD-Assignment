@@ -1,14 +1,11 @@
+import * as React from "react";
 import { useState } from "react";
-import * as React from "react";  
-import { Image, Text, View } from "react-native";
-import { Button} from "react-native-paper";
+import { Image, ScrollView, Text, View } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
 import Main from "../components/Main/Main";
 import { RegisterUser } from "../core/auth";
 import Login from "./Login";
-import ROUTES from "./ROUTES";
-import { IconButton, TextInput } from "react-native-paper";
-import { ScrollView } from "react-native";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = React.useState("");
