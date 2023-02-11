@@ -17,12 +17,10 @@ const MovieCard = ({
   date,
   navigation,
   title,
-  dropDownOpened,
   chartTitle,
+  listData,
 }) => {
-  const [dropDown, setDropDown] = React.useState(
-    dropDownOpened ? dropDown : true
-  );
+  const [dropDown, setDropDown] = React.useState(false);
 
   //   const [dropdownOpened, setDropdownOpened] = React.useState(false);
 
@@ -43,7 +41,16 @@ const MovieCard = ({
 
   return (
     <>
-      <Card style={{ width: "100%", margin: 5 }}>
+      <Card
+        style={{ width: "100%", margin: 5 }}
+        onPress={() => {
+          if (dropDown) {
+            setDropDown(false);
+          } else {
+            setDropDown(true);
+          }
+        }}
+      >
         <Card.Title
           title={title ? title : ""}
           right={(props) => (
@@ -53,25 +60,23 @@ const MovieCard = ({
               >
                 {count ? count : ""}
               </Text>
-              {chart ? (
-                <IconButton
-                  {...props}
-                  icon={dropDown ? "chevron-down" : "chevron-up"}
-                  onPress={() => {
-                    if (dropDown) {
-                      setDropDown(false);
-                    } else {
-                      setDropDown(true);
-                    }
-                  }}
-                />
-              ) : null}
+              <IconButton
+                {...props}
+                icon={dropDown ? "chevron-up" : "chevron-down"}
+                onPress={() => {
+                  if (dropDown) {
+                    setDropDown(false);
+                  } else {
+                    setDropDown(true);
+                  }
+                }}
+              />
             </View>
           )}
         />
       </Card>
       {/* Chart */}
-      {dropDown ? null : (
+      {dropDown && chart ? (
         <Card style={{ width: "100%", margin: 5 }}>
           <View
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -107,7 +112,37 @@ const MovieCard = ({
             }}
           />
         </Card>
-      )}
+      ) : null}
+      {dropDown && !chart ? (
+        <Card
+          style={{ width: "100%", margin: 5 }}
+          onPress={() => {
+            if (dropDown) {
+              setDropDown(false);
+            } else {
+              setDropDown(true);
+            }
+          }}
+        >
+          <View style={{ padding: 16, paddingLeft: 20, paddingRight: 30 }}>
+            {listData.map((movie, index) => (
+              <View
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {index + 1}. {movie.title}
+                </Text>
+                <Text style={{ fontSize: 16 }}>{movie.year}</Text>
+              </View>
+            ))}
+          </View>
+        </Card>
+      ) : null}
     </>
   );
 };
