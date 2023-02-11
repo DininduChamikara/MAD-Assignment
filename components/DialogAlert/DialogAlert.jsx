@@ -1,16 +1,16 @@
 import * as React from "react";
 import { View } from "react-native";
-import { Button, Dialog, Portal, Provider, Text } from "react-native-paper";
+import { Button, Dialog, Portal, Text } from "react-native-paper";
 
-const DialogAlert = ({visible, setVisible, setDropdownOpened, message}) => {
-//   const [visible, setVisible] = React.useState(true);
+const DialogAlert = ({ visible, setVisible, setDropdownOpened, message }) => {
+  //   const [visible, setVisible] = React.useState(true);
 
-  const showDialog = () =>  setVisible(true);
+  const showDialog = () => setVisible(true);
 
   const hideDialog = () => {
     setVisible(false);
-    setDropdownOpened(false)
-  } 
+    setDropdownOpened(false);
+  };
 
   return (
     <View>

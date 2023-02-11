@@ -25,7 +25,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       {exitMenuOpen && (
-        <View style={{ position: "absolute", top: 110 }}>
+        <View style={{ position: "absolute", top: 100, right: 5 }}>
           <ExitMenu navigation={navigation} />
         </View>
       )}
