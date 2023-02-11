@@ -4,19 +4,30 @@ import { Menu } from "react-native-paper";
 import { LogoutUser } from "../../core/auth";
 import Login from "../../pages/Login";
 
-const ExitMenu = ({navigation}) => {
+const ExitMenu = ({ navigation }) => {
   return (
     <View
       style={{
         flex: 1,
         width: "100%",
-        flexDirection: "row",
-        justifyContent: "flex-end",
+        borderRadius: 5,
+        height: 60,
         zIndex: 20,
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
       }}
     >
       <Menu.Item
-        style={{ width: 130 }}
+        style={{ width: 150, fontWeight: "bold" }}
         leadingIcon="exit-to-app"
         onPress={() => {
           LogoutUser()

@@ -51,7 +51,7 @@ function App() {
 export default () => {
   return (
     <NavigationContainer>
-      <App/>
+      <App />
     </NavigationContainer>
   );
-}
+};

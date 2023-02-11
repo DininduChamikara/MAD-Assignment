@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { format } from "date-fns";
 import {
   deleteDoc,
@@ -7,7 +6,7 @@ import {
   query,
   setDoc,
   updateDoc,
-  where
+  where,
 } from "firebase/firestore";
 import { auth, movieColRef } from "./config";
 

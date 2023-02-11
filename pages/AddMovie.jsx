@@ -1,14 +1,13 @@
 import { useRoute } from "@react-navigation/native";
 import * as React from "react";
-import { View } from "react-native";
-import { IconButton, Text, TextInput } from "react-native-paper";
+import { Image, StyleSheet, View } from "react-native";
+import { Button, Text, TextInput } from "react-native-paper";
 import PageWrapper from "../components/Layout/PageWrapper";
 import { Create, Update } from "../core/databaseCrud";
-import Home from "./Home";
+import ROUTES from "./ROUTES";
 
 const AddMovie = ({ navigation }) => {
   const route = useRoute();
-  // console.log(route.params)
 
   const clearParams = () => {
     navigation.setParams({ id: "", movieName: "", movieYear: null });
@@ -28,32 +27,49 @@ const AddMovie = ({ navigation }) => {
 
   return (
     <PageWrapper>
-      <View
-        style={{
-          paddingHorizontal: 5,
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Text variant="headlineMedium">{"Add/Edit Movie"}</Text>
+      <View style={styles.container}>
+        <Text
+          style={{ fontSize: 30, fontWeight: "bold", marginTop: 15 }}
+          variant="displayLarge"
+        >
+          {id === "" ? "Add New Movie" : "Edit Movie Details"}
+        </Text>
+        <Image source={require("../assets/Add.png")} style={styles.image} />
 
-        <IconButton
-          icon="check-circle-outline"
-          size={30}
+        <TextInput
+          style={{ width: "100%", marginVertical: 5 }}
+          label="Movie Name"
+          value={movieName}
+          onChangeText={(text) => setMovieName(text)}
+          right={<TextInput.Icon icon="movie-open-star" />}
+        />
+
+        <TextInput
+          style={{ width: "100%", marginVertical: 5 }}
+          label="Year"
+          value={movieYear}
+          onChangeText={(text) => setMovieYear(text)}
+          right={<TextInput.Icon icon="calendar" />}
+          keyboardType="numeric"
+        />
+        <Button
+          mode="contained"
+          style={{
+            width: "100%",
+            marginVertical: 40,
+            paddingVertical: 8,
+          }}
           onPress={() => {
             if (id === "") {
               Create(movieName, movieYear).then(() => {
-                navigation.navigate(Home);
+                navigation.navigate(ROUTES.HOME);
                 setMovieName("");
                 setMovieYear();
                 setId("");
               });
             } else {
               Update(id, movieName, movieYear).then(() => {
-                navigation.navigate(Home);
+                navigation.navigate(ROUTES.HOME);
                 setMovieName("");
                 setMovieYear();
                 setId("");
@@ -61,27 +77,23 @@ const AddMovie = ({ navigation }) => {
             }
             clearParams();
           }}
-        />
+        >
+          Save Details
+        </Button>
       </View>
-
-      <TextInput
-        style={{ width: "100%", marginVertical: 5 }}
-        label="Movie Name"
-        value={movieName}
-        onChangeText={(text) => setMovieName(text)}
-        right={<TextInput.Icon icon="movie-open-star" />}
-      />
-
-      <TextInput
-        style={{ width: "100%", marginVertical: 5 }}
-        label="Year"
-        value={movieYear}
-        onChangeText={(text) => setMovieYear(text)}
-        right={<TextInput.Icon icon="calendar" />}
-        keyboardType="numeric"
-      />
     </PageWrapper>
   );
 };
 
 export default AddMovie;
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    height: "100%",
+    paddingTop: 30,
+  },
+  image: { width: 150, height: 150, marginVertical: 60 },
+});
