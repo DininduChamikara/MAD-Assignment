@@ -65,6 +65,7 @@ const Home = ({ navigation }) => {
                 <MovieCard navigation={navigation} cardData={item} />
               </View>
             ))}
+            
         </ScrollView>
         <DialogAlert />
         <SnackBarComponent />
