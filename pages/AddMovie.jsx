@@ -16,6 +16,7 @@ const AddMovie = ({ navigation }) => {
   const [movieName, setMovieName] = React.useState("");
   const [movieYear, setMovieYear] = React.useState();
   const [id, setId] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     if (route.params) {
@@ -53,6 +54,7 @@ const AddMovie = ({ navigation }) => {
           keyboardType="numeric"
         />
         <Button
+          loading={isLoading}
           mode="contained"
           style={{
             width: "100%",
@@ -60,20 +62,29 @@ const AddMovie = ({ navigation }) => {
             paddingVertical: 8,
           }}
           onPress={() => {
+            setIsLoading(true);
             if (id === "") {
-              Create(movieName, movieYear).then(() => {
-                navigation.navigate(ROUTES.HOME);
-                setMovieName("");
-                setMovieYear();
-                setId("");
-              });
+              Create(movieName, movieYear)
+                .then(() => {
+                  navigation.navigate(ROUTES.HOME);
+                  setMovieName("");
+                  setMovieYear();
+                  setId("");
+                })
+                .finally(() => {
+                  setIsLoading(false);
+                });
             } else {
-              Update(id, movieName, movieYear).then(() => {
-                navigation.navigate(ROUTES.HOME);
-                setMovieName("");
-                setMovieYear();
-                setId("");
-              });
+              Update(id, movieName, movieYear)
+                .then(() => {
+                  navigation.navigate(ROUTES.HOME);
+                  setMovieName("");
+                  setMovieYear();
+                  setId("");
+                })
+                .finally(() => {
+                  setIsLoading(false);
+                });
             }
             clearParams();
           }}
