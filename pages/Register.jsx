@@ -105,7 +105,9 @@ const Register = ({ navigation }) => {
 
         <Button
           loading={isLoading}
-          disabled={!isEmailValid && !isPasswordValid & !isConfirmPasswordValid}
+          disabled={
+            !isEmailValid || !isPasswordValid || !isConfirmPasswordValid
+          }
           mode="contained"
           style={{ width: "100%", marginVertical: 15, paddingVertical: 8 }}
           onPress={() => {
